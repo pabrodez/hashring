@@ -1,4 +1,4 @@
-package main
+package hashring
 
 import (
 	"crypto/md5"
