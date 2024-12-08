@@ -7,7 +7,7 @@ import (
 	"slices"
 )
 
-func NewHashRing(nodes []string, replicas int) HashRing {
+func New(nodes []string, replicas int) HashRing {
 	nodeHashToAddrs := make(map[uint32]string)
 	nodeHashes := make([]uint32, len(nodes)*replicas)
 	count := 0
@@ -58,10 +58,16 @@ func (hr HashRing) findNextBiggestHash(lookupValue uint32) uint32 {
 	return hr.NodesHashList[n]
 }
 
-func (hr HashRing) GetNodeAddrForKey(key string) string {
+func (hr HashRing) GetNodeForKey(key string) string {
 	keyHash := generateKeyHash(key)
 	nodeHash := hr.findNextBiggestHash(keyHash)
 	return hr.NodeHashToAddr[nodeHash]
+}
+
+func generateKeyHash(key string) uint32 {
+	hash := md5.Sum([]byte(key))
+	hashNumber := binary.LittleEndian.Uint32(hash[:])
+	return hashNumber
 }
 
 type HashRing struct {
@@ -69,10 +75,4 @@ type HashRing struct {
 	Replicas       int
 	NodeHashToAddr map[uint32]string
 	NodesHashList  []uint32
-}
-
-func generateKeyHash(key string) uint32 {
-	hash := md5.Sum([]byte(key))
-	hashNumber := binary.LittleEndian.Uint32(hash[:])
-	return hashNumber
 }

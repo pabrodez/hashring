@@ -10,7 +10,7 @@ func TestNewHashRing(t *testing.T) {
 	nodes := []string{"node1", "node2", "node3"}
 	replicas := 3
 
-	hr := NewHashRing(nodes, replicas)
+	hr := New(nodes, replicas)
 
 	if len(hr.NodeAddrs) != len(nodes) {
 		t.Errorf("Expected %d nodes, got %d", len(nodes), len(hr.NodeAddrs))
@@ -31,7 +31,7 @@ func TestNewHashRing(t *testing.T) {
 }
 
 func TestHashRing_AddNode(t *testing.T) {
-	hr := NewHashRing([]string{"node1", "node2"}, 3)
+	hr := New([]string{"node1", "node2"}, 3)
 	initialHashCount := len(hr.NodesHashList)
 
 	hr.AddNode("node3")
@@ -51,7 +51,7 @@ func TestHashRing_AddNode(t *testing.T) {
 }
 
 func TestHashRing_RemoveNode(t *testing.T) {
-	hr := NewHashRing([]string{"node1", "node2", "node3"}, 3)
+	hr := New([]string{"node1", "node2", "node3"}, 3)
 	initialHashCount := len(hr.NodesHashList)
 
 	hr.RemoveNode("node2")
@@ -71,7 +71,7 @@ func TestHashRing_RemoveNode(t *testing.T) {
 }
 
 func TestHashRing_findNextBiggestHash(t *testing.T) {
-	hr := NewHashRing([]string{"node1", "node2"}, 1)
+	hr := New([]string{"node1", "node2"}, 1)
 
 	tests := []struct {
 		name     string
@@ -95,11 +95,11 @@ func TestHashRing_findNextBiggestHash(t *testing.T) {
 
 func TestHashRing_GetNodeAddrForKey(t *testing.T) {
 	nodes := []string{"node1", "node2", "node3"}
-	hr := NewHashRing(nodes, 1)
+	hr := New(nodes, 1)
 
 	for i := 0; i < 100; i++ {
 		key := fmt.Sprintf("key%d", i)
-		node := hr.GetNodeAddrForKey(key)
+		node := hr.GetNodeForKey(key)
 		if !slices.Contains(nodes, node) {
 			t.Errorf("Got unexpected node %s for key %s", node, key)
 		}
