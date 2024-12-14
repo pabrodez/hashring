@@ -1,5 +1,5 @@
 # hashring
-Consistent hash ring implementation. Useful for distributing cache among nodes.
+Consistent hashing ring implementation. Useful for distributing cache among nodes.
 ## How to use
 
 ```go
