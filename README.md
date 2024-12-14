@@ -22,7 +22,6 @@ nodeHashring.AddNode("node4")
 - https://www.metabrew.com/article/libketama-consistent-hashing-algo-memcached-clients
 - https://github.com/RJ/ketama/blob/master/libketama/ketama.c#L194
 - https://github.com/Doist/hash_ring/blob/master/README.markdown
-- https://github.com/dustin/java-memcached-client/blob/master/src/main/java/net/spy/memcached/- DefaultHashAlgorithm.java
 - https://web.archive.org/web/20150316185345/http://amix.dk/blog/post/19369
 - https://web.archive.org/web/20121130192740/http://amix.dk/blog/viewEntry/19367
 - https://michaelnielsen.org/blog/consistent-hashing/
